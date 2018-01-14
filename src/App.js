@@ -5,16 +5,12 @@ import './App.css';
 import socketIoClient from 'socket.io-client';
 
 import { connect } from 'react-redux';
-import { changeColor } from './action';
+import { changeColor, newMessage, addMessage } from './action';
 
-class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     color: '',
-  //     endpoint: 'http://localhost:8000/',
-  //   }
-  // }
+import Message from './message';
+import MessageInput from './messageInput';
+
+export class App extends Component {
   componentDidMount() {
     const socket = socketIoClient('http://localhost:8000/');
     socket.on('change color', (col) => {
@@ -26,18 +22,27 @@ class App extends Component {
     socket.emit('change color', this.props.color);
   }
   setColor = (color) => {
-    // this.setState({ color })
     this.props.dispatch(changeColor(color));
   }
 
+  messageInput = (message) => {
+    this.props.dispatch(newMessage(message));
+  }
+
+  submitMessage = () => {
+    this.props.dispatch(addMessage(this.props.message));
+  }
+
   render() {
+    console.log(this.props);
     return (
-      <div style={{ textAlign: "center" }}>
-        <button onClick={() => this.send()}>Change Color</button>
-
-        <button id="blue" onClick={() => this.setColor('blue')}>Blue</button>
-        <button id="red" onClick={() => this.setColor('red')}>Red</button>
-
+      <div>
+        <Message messageList={this.props.messageList} />
+        <MessageInput
+          onChange={this.messageInput}
+          value={this.props.message}
+        />
+        <button onClick={this.submitMessage}>Submit</button>
       </div>
     )
   }
@@ -45,6 +50,8 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   color: state.color,
+  messageList: state.messageList,
+  message: state.message,
 });
 
 export default connect(mapStateToProps)(App);
