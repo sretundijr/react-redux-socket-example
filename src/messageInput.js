@@ -2,7 +2,6 @@
 import React from 'react';
 
 export default function MessageInput(props) {
-  console.log(props)
   return (
     <div>
       <textarea

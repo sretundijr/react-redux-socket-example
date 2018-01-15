@@ -12,17 +12,6 @@ import MessageInput from './messageInput';
 
 export class App extends Component {
   componentDidMount() {
-    const socket = socketIoClient('http://localhost:8000/');
-    socket.on('change color', (col) => {
-      document.body.style.backgroundColor = col
-    })
-  }
-  send = () => {
-    const socket = socketIoClient('http://localhost:8000/');
-    socket.emit('change color', this.props.color);
-  }
-  setColor = (color) => {
-    this.props.dispatch(changeColor(color));
   }
 
   messageInput = (message) => {
@@ -30,7 +19,6 @@ export class App extends Component {
   }
 
   submitMessage = () => {
-    this.props.dispatch(addMessage(this.props.message));
   }
 
   render() {

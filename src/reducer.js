@@ -5,16 +5,11 @@ const initialState = {
   messageList: [
     'hello',
     'goodbye',
-    'does it work',
   ]
 }
 
-export const colorReducer = (state = initialState, action) => {
-  if (action.type === actions.CHANGE_COLOR) {
-    return Object.assign({}, state, {
-      color: action.color,
-    })
-  } else if (action.type === actions.NEW_MESSAGE) {
+export const messageReducer = (state = initialState, action) => {
+  if (action.type === actions.NEW_MESSAGE) {
     return Object.assign({}, state, {
       message: action.message,
     })

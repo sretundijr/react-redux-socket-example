@@ -1,5 +1,5 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 
-import { colorReducer } from './reducer';
+import { messageReducer } from './reducer';
 
-export default createStore(colorReducer);
+export default createStore(messageReducer);
